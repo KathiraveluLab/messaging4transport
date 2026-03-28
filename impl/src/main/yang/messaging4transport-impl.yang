@@ -5,6 +5,7 @@ module messaging4transport-impl {
 
     import config { prefix config; revision-date 2013-04-05; }
     import opendaylight-md-sal-binding { prefix md-sal-binding; revision-date 2013-10-28;}
+    import opendaylight-md-sal-dom { prefix md-sal-dom; revision-date 2013-10-28;}
 
     description
         "Service definition for messaging4transport project";
@@ -27,6 +28,14 @@ module messaging4transport-impl {
                     refine type {
                         mandatory true;
                         config:required-identity md-sal-binding:binding-broker-osgi-registry;
+                    }
+                }
+            }
+            container dom-broker {
+                uses config:service-ref {
+                    refine type {
+                        mandatory true;
+                        config:required-identity md-sal-dom:dom-broker-osgi-registry;
                     }
                 }
             }

@@ -18,26 +18,25 @@ public class Publisher {
     private static final Logger LOG = LoggerFactory.getLogger(Publisher.class);
 
     /**
-     * Publishes the RPC, data tree, and notifications to the given destination/topic.
+     * Publishes the data to the given destination/topic.
+     * @param payload XML or JSON string to publish
      */
-    public static void publish(){
+    public static void publish(String payload){
         String destination = Messaging4TransportConstants.AMQP_TOPIC_EVENT_DESTINATION;
         try {
-            publish(destination);
+            publish(destination, payload);
         } catch (JMSException e) {
             LOG.error("JMS Exception in publishing to the AMQP broker", e);
-        } catch (InterruptedException e) {
-            LOG.error("Interrupted Exception in publishing to the AMQP broker", e);
         }
     }
 
     /**
      * Publishes the data to the given destination
      * @param destination The destination topic
+     * @param payload XML or JSON string to publish
      * @throws JMSException if sending the data to the broker fails
-     * @throws InterruptedException if interrupted
      */
-    public static void publish(String destination) throws JMSException, InterruptedException {
+    public static void publish(String destination, String payload) throws JMSException {
         String user = AMQPConfig.getUser();
         String password = AMQPConfig.getPassword();
         String host = AMQPConfig.getHost();
@@ -51,6 +50,10 @@ public class Publisher {
         MessageProducer producer = session.createProducer(AMQPConfig.getDestination(destination));
         producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-        MessageGen.sendMessages(session, producer);
+        TextMessage msg = session.createTextMessage(payload);
+        producer.send(msg);
+
+        session.close();
+        connection.close();
     }
 }
