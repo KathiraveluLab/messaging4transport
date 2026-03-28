@@ -39,6 +39,14 @@ module messaging4transport-impl {
                     }
                 }
             }
+            container dom-schema-service {
+                uses config:service-ref {
+                    refine type {
+                        mandatory true;
+                        config:required-identity md-sal-dom:dom-schema-service;
+                    }
+                }
+            }
         }
     }
 }

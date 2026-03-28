@@ -11,10 +11,9 @@ import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderCo
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
 import org.opendaylight.controller.sal.core.api.Broker.ProviderSession;
 import org.opendaylight.controller.sal.core.api.Provider;
-import org.opendaylight.controller.sal.core.api.dom.DOMDataBroker;
-import org.opendaylight.controller.sal.core.api.dom.DOMNotificationService;
-import org.opendaylight.controller.sal.core.api.dom.DOMRpcService;
-import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
+import org.opendaylight.controller.md.sal.dom.api.DOMSchemaService;
+import org.opendaylight.yangtools.yang.model.api.SchemaContext;
+import org.opendaylight.yangtools.yang.model.api.SchemaContextListener;
 import org.opendaylight.yangtools.concepts.ListenerRegistration;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.messaging4transport.rev150105.Messaging4transportService;
@@ -22,7 +21,7 @@ import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistr
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Messaging4transportProvider implements BindingAwareProvider, Provider, AutoCloseable {
+public class Messaging4transportProvider implements BindingAwareProvider, Provider, SchemaContextListener, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(Messaging4transportProvider.class);
     private RpcRegistration<Messaging4transportService> messaging4transportService;
@@ -30,8 +29,11 @@ public class Messaging4transportProvider implements BindingAwareProvider, Provid
     private DOMDataBroker domDataBroker;
     private DOMNotificationService domNotificationService;
     private DOMRpcService domRpcService;
+    private DOMSchemaService schemaService;
+    private SchemaContext schemaContext;
 
     private ListenerRegistration<?> dataChangeListener;
+    private ListenerRegistration<?> schemaContextListenerRegistration;
     private Messaging4TransportRpcConsumer rpcConsumer;
 
     @Override
@@ -60,9 +62,25 @@ public class Messaging4transportProvider implements BindingAwareProvider, Provid
 
         if (domRpcService != null) {
             rpcConsumer = new Messaging4TransportRpcConsumer(domRpcService);
+            if (this.schemaContext != null) {
+                rpcConsumer.onGlobalContextUpdated(this.schemaContext);
+            }
         }
 
         Publisher.publish("Messaging4Transport DOM Session Initiated");
+    }
+
+    public void setSchemaService(DOMSchemaService schemaService) {
+        this.schemaService = schemaService;
+        this.schemaContextListenerRegistration = schemaService.registerSchemaContextListener(this);
+    }
+
+    @Override
+    public void onGlobalContextUpdated(SchemaContext context) {
+        this.schemaContext = context;
+        if (rpcConsumer != null) {
+            rpcConsumer.onGlobalContextUpdated(context);
+        }
     }
 
     @Override
@@ -73,6 +91,9 @@ public class Messaging4transportProvider implements BindingAwareProvider, Provid
         }
         if (dataChangeListener != null) {
             dataChangeListener.close();
+        }
+        if (schemaContextListenerRegistration != null) {
+            schemaContextListenerRegistration.close();
         }
         if (rpcConsumer != null) {
             rpcConsumer.close();

@@ -26,6 +26,7 @@ public class Messaging4transportModule extends org.opendaylight.yang.gen.v1.urn.
     @Override
     public java.lang.AutoCloseable createInstance() {
         Messaging4transportProvider provider = new Messaging4transportProvider();
+        provider.setSchemaService(getDomSchemaServiceDependency());
         getBrokerDependency().registerProvider(provider);
         getDomBrokerDependency().registerProvider(provider);
         return provider;
