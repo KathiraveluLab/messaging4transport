@@ -21,7 +21,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
     <maven>3.1.1</maven>
   </prerequisites>
   <properties>
-    <mdsal.version>1.2.0-SNAPSHOT</mdsal.version>
+    <mdsal.version>1.2.4-Lithium-SR4</mdsal.version>
     <yangtools.version>0.7.0-SNAPSHOT</yangtools.version>
     <configfile.directory>etc/opendaylight/karaf</configfile.directory>
   </properties>
