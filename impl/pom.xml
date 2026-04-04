@@ -12,7 +12,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <parent>
         <groupId>org.opendaylight.controller</groupId>
         <artifactId>config-parent</artifactId>
-        <version>0.8.4</version>
+        <version>0.3.4-Lithium-SR4</version>
         <relativePath/>
     </parent>
 
@@ -21,6 +21,45 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <artifactId>messaging4transport-impl</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
+
+    <properties>
+        <mdsal.version>1.2.4-Lithium-SR4</mdsal.version>
+        <yangtools.version>0.7.4-Lithium-SR4</yangtools.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>opendaylight-mirror</id>
+            <name>opendaylight-mirror</name>
+            <url>https://nexus.opendaylight.org/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>mdsal-artifacts</artifactId>
+                <version>${mdsal.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.yangtools</groupId>
+                <artifactId>yangtools-artifacts</artifactId>
+                <version>${yangtools.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -38,6 +77,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
 
@@ -57,30 +97,37 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
         <dependency>
             <groupId>org.opendaylight.controller</groupId>
             <artifactId>sal-binding-api</artifactId>
+            <version>${mdsal.version}</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.controller</groupId>
             <artifactId>sal-dom-api</artifactId>
+            <version>${mdsal.version}</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.controller</groupId>
             <artifactId>sal-common-api</artifactId>
+            <version>${mdsal.version}</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-data-api</artifactId>
+            <version>${yangtools.version}</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-model-api</artifactId>
+            <version>${yangtools.version}</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-data-impl</artifactId>
+            <version>${yangtools.version}</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-common</artifactId>
+            <version>${yangtools.version}</version>
         </dependency>
 
     </dependencies>

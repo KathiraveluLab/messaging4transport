@@ -14,6 +14,21 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <relativePath/>
   </parent>
 
+  <repositories>
+    <repository>
+      <id>opendaylight-mirror</id>
+      <name>opendaylight-mirror</name>
+      <url>https://nexus.opendaylight.org/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opendaylight.messaging4transport</groupId>
   <artifactId>messaging4transport-api</artifactId>

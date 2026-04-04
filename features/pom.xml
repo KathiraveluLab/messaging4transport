@@ -9,7 +9,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
   <parent>
     <groupId>org.opendaylight.odlparent</groupId>
     <artifactId>features-parent</artifactId>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.4-Lithium-SR4</version>
     <relativePath/>
   </parent>
   <groupId>org.opendaylight.messaging4transport</groupId>
@@ -22,9 +22,23 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
   </prerequisites>
   <properties>
     <mdsal.version>1.2.4-Lithium-SR4</mdsal.version>
-    <yangtools.version>0.7.0-SNAPSHOT</yangtools.version>
+    <yangtools.version>0.7.4-Lithium-SR4</yangtools.version>
     <configfile.directory>etc/opendaylight/karaf</configfile.directory>
   </properties>
+  <repositories>
+    <repository>
+      <id>opendaylight-mirror</id>
+      <name>opendaylight-mirror</name>
+      <url>https://nexus.opendaylight.org/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencyManagement>
     <dependencies>
       <!-- project specific dependencies -->

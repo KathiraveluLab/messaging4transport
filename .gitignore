@@ -3,3 +3,11 @@ _bmad
 .codex
 .cursor
 .vscode
+target/
+api/src/main/yang-gen-sal/
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+bin/
