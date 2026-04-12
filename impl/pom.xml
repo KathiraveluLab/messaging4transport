@@ -90,7 +90,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
         <dependency>
             <groupId>org.apache.qpid</groupId>
             <artifactId>qpid-amqp-1-0-client-jms</artifactId>
-            <version>0.24</version>
+            <version>0.32</version>
         </dependency>
 
         <!-- MD-SAL DOM and Yangtools -->
