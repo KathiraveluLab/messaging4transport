@@ -8,7 +8,7 @@
 package org.opendaylight.messaging4transport.impl;
 
 import org.opendaylight.controller.md.sal.common.api.data.AsyncDataChangeEvent;
-import org.opendaylight.controller.sal.core.api.data.DOMDataChangeListener;
+import org.opendaylight.controller.md.sal.dom.api.DOMDataChangeListener;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.slf4j.Logger;

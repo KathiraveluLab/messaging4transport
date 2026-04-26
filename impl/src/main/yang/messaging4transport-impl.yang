@@ -43,7 +43,7 @@ module messaging4transport-impl {
                 uses config:service-ref {
                     refine type {
                         mandatory true;
-                        config:required-identity md-sal-dom:dom-schema-service;
+                        config:required-identity md-sal-dom:schema-service;
                     }
                 }
             }

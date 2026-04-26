@@ -11,3 +11,13 @@ api/src/main/yang-gen-sal/
 .classpath
 .settings/
 bin/
+*.log
+*.txt
+.jdk/
+settings.xml
+META-INF/
+**/yang-gen-sal/
+**/maven-metadata-local.xml
+sal-core-api-*.jar*
+sal-*-api-*.pom
+sal-parent-*.pom

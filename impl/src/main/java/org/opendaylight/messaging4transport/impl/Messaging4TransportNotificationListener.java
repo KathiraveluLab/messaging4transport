@@ -7,8 +7,8 @@
  */
 package org.opendaylight.messaging4transport.impl;
 
-import org.opendaylight.controller.sal.core.api.dom.DOMNotification;
-import org.opendaylight.controller.sal.core.api.dom.DOMNotificationListener;
+import org.opendaylight.controller.md.sal.dom.api.DOMNotification;
+import org.opendaylight.controller.md.sal.dom.api.DOMNotificationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

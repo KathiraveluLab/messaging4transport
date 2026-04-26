@@ -29,7 +29,19 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
     <repository>
       <id>opendaylight-mirror</id>
       <name>opendaylight-mirror</name>
-      <url>https://nexus.opendaylight.org/content/groups/public/</url>
+      <url>https://nexus.opendaylight.org/content/repositories/public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>opendaylight-release</id>
+      <name>opendaylight-release</name>
+      <url>https://nexus.opendaylight.org/content/repositories/opendaylight.release/</url>
       <releases>
         <enabled>true</enabled>
         <updatePolicy>never</updatePolicy>

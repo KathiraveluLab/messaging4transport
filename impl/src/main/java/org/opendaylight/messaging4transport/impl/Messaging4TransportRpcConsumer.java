@@ -10,6 +10,8 @@ package org.opendaylight.messaging4transport.impl;
 import org.apache.qpid.amqp_1_0.jms.impl.ConnectionFactoryImpl;
 import org.opendaylight.yangtools.yang.model.api.SchemaContext;
 import org.opendaylight.yangtools.yang.model.api.RpcDefinition;
+import org.opendaylight.controller.md.sal.dom.api.DOMRpcService;
+import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier.NodeIdentifier;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.data.api.schema.ContainerNode;
 import org.opendaylight.yangtools.yang.data.impl.schema.Builders;
@@ -81,12 +83,12 @@ public class Messaging4TransportRpcConsumer implements MessageListener, AutoClos
                 SchemaPath schemaPath = SchemaPath.create(true, rpcQName);
                 
                 // 2. Build the input NormalizedNode (ContainerNode for RPC input)
-                DataContainerNodeAttrBuilder<YangInstanceIdentifier.NodeIdentifier, ContainerNode> inputBuilder = 
-                        Builders.containerBuilder().withNodeIdentifier(new YangInstanceIdentifier.NodeIdentifier(QName.create(rpcQName, "input")));
+                DataContainerNodeAttrBuilder<NodeIdentifier, ContainerNode> inputBuilder = 
+                        Builders.containerBuilder().withNodeIdentifier(new NodeIdentifier(QName.create(rpcQName, "input")));
                 
                 // Add a leaf 'name' to the input (based on our yang model)
                 inputBuilder.withChild(Builders.leafBuilder()
-                        .withNodeIdentifier(new YangInstanceIdentifier.NodeIdentifier(QName.create(rpcQName, "name")))
+                        .withNodeIdentifier(new NodeIdentifier(QName.create(rpcQName, "name")))
                         .withValue(text) // Use the raw AMQP text as the 'name' input
                         .build());
                 

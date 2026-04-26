@@ -11,7 +11,11 @@ import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderCo
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
 import org.opendaylight.controller.sal.core.api.Broker.ProviderSession;
 import org.opendaylight.controller.sal.core.api.Provider;
-import org.opendaylight.controller.md.sal.dom.api.DOMSchemaService;
+import org.opendaylight.controller.md.sal.dom.api.DOMDataBroker;
+import org.opendaylight.controller.md.sal.dom.api.DOMNotificationService;
+import org.opendaylight.controller.md.sal.dom.api.DOMRpcService;
+import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
+import org.opendaylight.controller.sal.core.api.model.SchemaService;
 import org.opendaylight.yangtools.yang.model.api.SchemaContext;
 import org.opendaylight.yangtools.yang.model.api.SchemaContextListener;
 import org.opendaylight.yangtools.concepts.ListenerRegistration;
@@ -29,7 +33,7 @@ public class Messaging4transportProvider implements BindingAwareProvider, Provid
     private DOMDataBroker domDataBroker;
     private DOMNotificationService domNotificationService;
     private DOMRpcService domRpcService;
-    private DOMSchemaService schemaService;
+    private SchemaService schemaService;
     private SchemaContext schemaContext;
 
     private ListenerRegistration<?> dataChangeListener;
@@ -70,7 +74,7 @@ public class Messaging4transportProvider implements BindingAwareProvider, Provid
         Publisher.publish("Messaging4Transport DOM Session Initiated");
     }
 
-    public void setSchemaService(DOMSchemaService schemaService) {
+    public void setSchemaService(SchemaService schemaService) {
         this.schemaService = schemaService;
         this.schemaContextListenerRegistration = schemaService.registerSchemaContextListener(this);
     }
@@ -98,5 +102,10 @@ public class Messaging4transportProvider implements BindingAwareProvider, Provid
         if (rpcConsumer != null) {
             rpcConsumer.close();
         }
+    }
+
+    @Override
+    public java.util.Collection<org.opendaylight.controller.sal.core.api.Provider.ProviderFunctionality> getProviderFunctionality() {
+        return java.util.Collections.emptySet();
     }
 }
